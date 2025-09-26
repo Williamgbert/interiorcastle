@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyContemplativePrayer - The Interior Castle Journey</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #f8f9fa;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Landing Screen */
+        .landing {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            overflow: hidden;
+        }
+
+        .landing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="0.5" fill="rgba(255,255,255,0.3)"/><circle cx="12" cy="8" r="0.3" fill="rgba(255,255,255,0.2)"/><circle cx="18" cy="15" r="0.4" fill="rgba(255,255,255,0.25)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>') repeat;
+            animation: twinkle 20s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes twinkle {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .mandala {
+            width: 200px;
+            height: 200px;
+            margin: 2rem 0;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #ff6b6b 0deg,
+                #4ecdc4 60deg,
+                #45b7d1 120deg,
+                #96ceb4 180deg,
+                #feca57 240deg,
+                #ff9ff3 300deg,
+                #ff6b6b 360deg
+            );
+            animation: mandalaRotate 8s linear infinite, pulse 4s ease-in-out infinite;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .mandala::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            bottom: 10%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: counterRotate 12s linear infinite;
+        }
+
+        .mandala::after {
+            content: '🕊️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes mandalaRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes counterRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 50px rgba(255, 255, 255, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 80px rgba(255, 255, 255, 0.5), inset 0 0 50px rgba(255, 255, 255, 0.2); }
+        }
+
+        .title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .enter-btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .enter-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        /* Castle Map */
+        .castle-map {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .castle-map.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .map-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .castle-rings {
+            position: relative;
+            width: min(80vw, 500px);
+            height: min(80vw, 500px);
+            margin: 2rem 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .castle-rings::before {
+            content: '✨';
+            position: absolute;
+            top: 10%;
+            left: 20%;
+            font-size: 1.5rem;
+            animation: sparkle 4s ease-in-out infinite;
+        }
+
+        .castle-rings::after {
+            content: '⭐';
+            position: absolute;
+            bottom: 15%;
+            right: 25%;
+            font-size: 1.2rem;
+            animation: sparkle 3s ease-in-out infinite 1s;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .ring {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.5rem;
+            box-sizing: border-box;
+        }
+
+        .ring:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.6);
+        }
+
+        .ring.completed {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+            animation: completedGlow 3s ease-in-out infinite;
+        }
+
+        .ring.completed::after {
+            content: '👑';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.2rem;
+            animation: crownFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes completedGlow {
+            0%, 100% { box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2); }
+            50% { box-shadow: 0 8px 32px rgba(255, 215, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.3); }
+        }
+
+        @keyframes crownFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+
+        .ring.current {
+            background: rgba(138, 43, 226, 0.2);
+            border-color: rgba(138, 43, 226, 0.6);
+            animation: currentPulse 2s ease-in-out infinite;
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+        }
+
+        .ring.current::after {
+            content: '🔮';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            animation: orbFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes currentPulse {
+            0%, 100% { 
+                box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+                border-color: rgba(138, 43, 226, 0.6);
+            }
+            50% { 
+                box-shadow: 0 8px 32px rgba(138, 43, 226, 0.5), 0 0 30px rgba(138, 43, 226, 0.4);
+                border-color: rgba(138, 43, 226, 0.8);
+            }
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0px) rotate(0deg); }
+            33% { transform: translateX(-50%) translateY(-8px) rotate(120deg); }
+            66% { transform: translateX(-50%) translateY(-4px) rotate(240deg); }
+        }
+
+        /* Progress Indicator */
+        .progress-tower {
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            overflow: hidden;
+            z-index: 1000;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .progress-light {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0%;
+            background: linear-gradient(to right, #ffd700, #ff6b6b);
+            transition: width 0.8s ease;
+            border-radius: 4px;
+        }
+
+        /* Mansion Sections */
+        .mansion {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mansion::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(78, 205, 196, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(69, 183, 209, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            animation: backgroundShift 15s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        .mansion:hover::before {
+            opacity: 1.5;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 0.3; }
+            33% { opacity: 0.5; }
+            66% { opacity: 0.4; }
+        }
+
+        .mansion.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mansion.visible::after {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatingOrb 8s ease-in-out infinite;
+        }
+
+        @keyframes floatingOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(-20px, -30px) scale(1.2); opacity: 0.6; }
+            50% { transform: translate(-40px, 10px) scale(0.8); opacity: 0.4; }
+            75% { transform: translate(-10px, -20px) scale(1.1); opacity: 0.5; }
+        }
+
+        .mansion-number {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .mansion-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mansion-title:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+        }
+
+        .mansion-title::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { opacity: 0.3; width: 100px; }
+            50% { opacity: 1; width: 150px; }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .mansion-content {
+            max-width: 800px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            font-family: 'Georgia', serif;
+            text-align: left;
+            width: 100%;
+            padding: 0 2rem;
+            box-sizing: border-box;
+        }
+
+        .animated-text {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: textReveal 0.8s ease-out forwards;
+        }
+
+        .animated-text:nth-child(2) { animation-delay: 0.2s; }
+        .animated-text:nth-child(3) { animation-delay: 0.4s; }
+        .animated-text:nth-child(4) { animation-delay: 0.6s; }
+        .animated-text:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes textReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .highlight-text {
+            background: linear-gradient(120deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.1) 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-text:hover {
+            background: linear-gradient(120deg, rgba(255, 215, 0, 0.5) 0%, rgba(255, 215, 0, 0.2) 100%);
+            transform: scale(1.02);
+        }
+
+        .mystical-text {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: mysticalShimmer 4s ease-in-out infinite;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes mysticalShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Enhanced Typography Styles */
+        .drop-cap {
+            float: left;
+            font-size: 3.5rem;
+            line-height: 2.8rem;
+            padding-right: 12px;
+            padding-top: 4px;
+            margin-bottom: 4px;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .ornamental-text {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: rgba(255, 215, 0, 0.9);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .verse-text {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 1.05em;
+            line-height: 1.6;
+            text-indent: 2em;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .verse-text::first-line {
+            font-variant: small-caps;
+            letter-spacing: 1px;
+        }
+
+        .emphasis-text {
+            font-weight: 600;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            font-variant: small-caps;
+            letter-spacing: 0.5px;
+        }
+
+        .manuscript-text {
+            font-family: 'Georgia', serif;
+            font-size: 1.05em;
+            line-height: 1.7;
+            text-align: justify;
+            hyphens: auto;
+            text-justify: inter-word;
+        }
+
+        .manuscript-text::first-letter {
+            font-size: 2.2em;
+            float: left;
+            line-height: 0.9;
+            margin: 0.05em 0.08em 0 0;
+            font-weight: bold;
+            color: #4ecdc4;
+            font-family: 'Georgia', serif;
+        }
+
+        .sacred-number {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            width: 2em;
+            height: 2em;
+            line-height: 2em;
+            text-align: center;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 0 0.5em;
+            font-family: 'Georgia', serif;
+        }
+
+        .illuminated-text {
+            position: relative;
+            padding: 0.2em 0.5em;
+            background: linear-gradient(120deg, 
+                rgba(255, 215, 0, 0.1) 0%, 
+                rgba(255, 215, 0, 0.05) 25%,
+                transparent 50%,
+                rgba(78, 205, 196, 0.05) 75%,
+                rgba(78, 205, 196, 0.1) 100%);
+            border-left: 3px solid rgba(255, 215, 0, 0.4);
+            font-style: italic;
+            margin: 0.5em 0;
+        }
+
+        .chapter-marker {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0 1rem 0;
+            font-family: 'Georgia', serif;
+        }
+
+        .chapter-marker::before,
+        .chapter-marker::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.5), transparent);
+        }
+
+        .chapter-marker span {
+            padding: 0 1rem;
+            font-variant: small-caps;
+            letter-spacing: 2px;
+            color: #ffd700;
+            font-weight: 500;
+        }
+
+        .wisdom-callout {
+            background: linear-gradient(135deg, 
+                rgba(138, 43, 226, 0.15) 0%,
+                rgba(138, 43, 226, 0.05) 100%);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        .wisdom-callout::before {
+            content: '✦';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: rgba(138, 43, 226, 0.8);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .latin-phrase {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+            border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+        }
+
+        .section-divider {
+            text-align: center;
+            margin: 0.3rem 0 0.2rem 0;
+            font-size: 1.5rem;
+            color: rgba(255, 215, 0, 0.6);
+        }
+
+        .poetic-line {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.1em;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .marginal-note {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            border-left: 2px solid rgba(255, 215, 0, 0.3);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .teresa-quote {
+            font-style: italic;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-left: 4px solid #4ecdc4;
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.15), rgba(78, 205, 196, 0.05));
+            border-radius: 15px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(78, 205, 196, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .teresa-quote::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .teresa-quote:hover::before {
+            left: 100%;
+        }
+
+        .teresa-quote:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(78, 205, 196, 0.3);
+        }
+
+        .teresa-quote .quote-mark {
+            font-size: 2.5rem;
+            color: rgba(78, 205, 196, 0.4);
+            line-height: 0.8;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+            position: relative;
+            top: 0.2em;
+        }
+
+        .teresa-quote .quote-mark.open {
+            margin-right: 0.3rem;
+            margin-left: -0.2rem;
+        }
+
+        .teresa-quote .quote-mark.close {
+            margin-left: 0.3rem;
+            margin-right: -0.2rem;
+        }
+
+        .interactive-word {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+        }
+
+        .interactive-word:hover {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .word-tooltip {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            max-width: 250px;
+            white-space: normal;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .interactive-word:hover .word-tooltip {
+            opacity: 1;
+        }
+
+        .breathing-text {
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.02); opacity: 1; }
+        }
+
+        .typewriter-text {
+            overflow: hidden;
+            border-right: 2px solid rgba(255, 255, 255, 0.7);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: rgba(255, 255, 255, 0.7); }
+        }
+
+        .wisdom-highlight {
+            background: linear-gradient(45deg, rgba(138, 43, 226, 0.2), rgba(255, 107, 107, 0.2));
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 3px solid rgba(138, 43, 226, 0.6);
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(138, 43, 226, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .wisdom-highlight:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 25px rgba(138, 43, 226, 0.2);
+        }
+
+        .wisdom-highlight::before {
+            content: '💡';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(138, 43, 226, 0.8);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .scripture-reference {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            margin-top: 0.5rem;
+            text-align: right;
+            transition: color 0.3s ease;
+        }
+
+        .scripture-reference:hover {
+            color: #ffd700;
+        }
+
+        .expandable-section {
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .expandable-header {
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .expandable-header:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .expandable-content.expanded {
+            max-height: 500px;
+            padding: 1rem 1.5rem;
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .reflection-prompt {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-left: 4px solid rgba(78, 205, 196, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        .reflection-prompt h3 {
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+            font-family: 'Georgia', serif;
+            font-variant: small-caps;
+            letter-spacing: 1px;
+        }
+
+        .mansion-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.09);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        .btn.primary {
+            background: rgba(138, 43, 226, 0.2);
+            border-color: rgba(138, 43, 226, 0.4);
+            box-shadow: 0 4px 16px rgba(138, 43, 226, 0.2);
+        }
+
+        .btn.primary:hover {
+            background: rgba(138, 43, 226, 0.3);
+            border-color: rgba(138, 43, 226, 0.6);
+            box-shadow: 0 8px 24px rgba(138, 43, 226, 0.3);
+        }
+
+        /* Prayer Mode Modal */
+        .prayer-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(20px);
+        }
+
+        .prayer-modal.active {
+            display: flex;
+        }
+
+        .prayer-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 600px;
+            margin: 2rem;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            font-family: 'Georgia', serif;
+        }
+
+        .prayer-content h3 {
+            color: #4ecdc4;
+            margin-bottom: 1.5rem;
+            font-variant: small-caps;
+            letter-spacing: 1px;
+        }
+
+        .prayer-content p {
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .timer-display {
+            font-size: 3rem;
+            margin: 2rem 0;
+            color: #ffd700;
+        }
+
+        /* Journal Modal */
+        .journal-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .journal-modal.active {
+            display: flex;
+        }
+
+        .journal-content {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            font-family: 'Georgia', serif;
+        }
+
+        .journal-content h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-variant: small-caps;
+            letter-spacing: 1px;
+        }
+
+        .journal-content p {
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .journal-textarea {
+            width: 100%;
+            height: 200px;
+            padding: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: vertical;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .landing {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .mandala {
+                width: 150px;
+                height: 150px;
+                margin: 1.5rem 0;
+            }
+            
+            .enter-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .castle-map {
+                padding: 1rem;
+            }
+            
+            .map-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .castle-rings {
+                width: min(85vw, 350px);
+                height: min(85vw, 350px);
+                margin: 1rem 0;
+            }
+            
+            .ring {
+                font-size: 0.7rem;
+                padding: 0.3rem;
+            }
+            
+            .progress-tower {
+                width: 120px;
+                height: 6px;
+                bottom: 1rem;
+            }
+            
+            .mansion {
+                padding: 2rem 1rem;
+                min-height: auto;
+            }
+            
+            .mansion-number {
+                font-size: 1rem;
+            }
+            
+            .mansion-title {
+                font-size: clamp(1.5rem, 6vw, 2.5rem);
+                margin-bottom: 1.5rem;
+            }
+            
+            .mansion-content {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 2rem;
+                padding: 0 0.5rem;
+            }
+            
+            .ornamental-text {
+                margin: 0 1em;
+            }
+            
+            .ornamental-text::before {
+                left: -0.8em;
+            }
+            
+            .ornamental-text::after {
+                right: -0.8em;
+            }
+            
+            .drop-cap {
+                font-size: 2.8rem;
+                line-height: 2.2rem;
+            }
+            
+            .manuscript-text::first-letter {
+                font-size: 1.8em;
+                margin: 0.02em 0.06em 0 0;
+            }
+            
+            .reflection-prompt {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+            
+            .mansion-actions {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .prayer-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+            
+            .timer-display {
+                font-size: 2.5rem;
+                margin: 1.5rem 0;
+            }
+            
+            .journal-modal {
+                padding: 1rem;
+            }
+            
+            .journal-content {
+                padding: 1.5rem;
+            }
+            
+            .journal-textarea {
+                height: 150px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: clamp(1.5rem, 10vw, 2rem);
+            }
+            
+            .mandala {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .castle-rings {
+                width: min(90vw, 280px);
+                height: min(90vw, 280px);
+            }
+            
+            .ring {
+                font-size: 0.7rem;
+            }
+            
+            .mansion {
+                padding: 1.5rem 0.8rem;
+            }
+            
+            .mansion-content {
+                font-size: 0.95rem;
+            }
+            
+            .reflection-prompt {
+                padding: 1rem;
+            }
+            
+            .progress-tower {
+                width: 100px;
+                height: 5px;
+            }
+            
+            .prayer-content {
+                padding: 1.5rem 1rem;
+            }
+            
+            .timer-display {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (orientation: landscape) and (max-height: 600px) {
+            .landing {
+                padding: 0.5rem;
+            }
+            
+            .mandala {
+                width: 100px;
+                height: 100px;
+                margin: 1rem 0;
+            }
+            
+            .mansion {
+                padding: 1rem;
+                justify-content: flex-start;
+                padding-top: 2rem;
+            }
+            
+            .castle-map {
+                padding: 1rem;
+                justify-content: flex-start;
+                padding-top: 2rem;
+            }
+        }
+
+        /* Mouse Trail Effect */
+        .mouse-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.8;
+            animation: trailFade 1s ease-out forwards;
+        }
+
+        @keyframes trailFade {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Utility classes */
+        .hidden {
+            display: none;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Prevent text overflow */
+        .text-container {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Screen -->
+    <section class="landing" id="landing">
+        <h1 class="title">The Interior Castle</h1>
+        <p class="subtitle">A Contemplative Journey</p>
+        <div class="mandala"></div>
+        <button class="enter-btn" onclick="enterCastle()">🏰 Enter the Castle</button>
+    </section>
+
+    <!-- Progress Tower -->
+    <div class="progress-tower hidden" id="progressTower">
+        <div class="progress-light" id="progressLight" style="height: 0%"></div>
+    </div>
+
+    <!-- Castle Map -->
+    <section class="castle-map hidden" id="castleMap">
+        <h2 class="map-title">The Seven Mansions</h2>
+        <p class="subtitle">Choose your path through the castle of the soul</p>
+        
+        <div class="castle-rings">
+            <div class="ring current" style="width: 100%; height: 100%; top: 0; left: 0;" onclick="goToMansion(1)">
+                <span>First Mansion</span>
+            </div>
+            <div class="ring" style="width: 85%; height: 85%; top: 7.5%; left: 7.5%;" onclick="goToMansion(2)">
+                <span>Second</span>
+            </div>
+            <div class="ring" style="width: 70%; height: 70%; top: 15%; left: 15%;" onclick="goToMansion(3)">
+                <span>Third</span>
+            </div>
+            <div class="ring" style="width: 55%; height: 55%; top: 22.5%; left: 22.5%;" onclick="goToMansion(4)">
+                <span>Fourth</span>
+            </div>
+            <div class="ring" style="width: 40%; height: 40%; top: 30%; left: 30%;" onclick="goToMansion(5)">
+                <span>Fifth</span>
+            </div>
+            <div class="ring" style="width: 25%; height: 25%; top: 37.5%; left: 37.5%;" onclick="goToMansion(6)">
+                <span>Sixth</span>
+            </div>
+            <div class="ring" style="width: 10%; height: 10%; top: 45%; left: 45%;" onclick="goToMansion(7)">
+                <span>Seventh</span>
+            </div>
+        </div>
+        
+        <button class="btn primary" onclick="startJourney()">🚪 Begin Linear Journey</button>
+    </section>
+
+    <!-- Mansion 1 -->
+    <section class="mansion hidden" id="mansion1">
+        <div style="position: absolute; top: 20px; left: 20px; font-size: 2rem; opacity: 0.3; animation: fadeInOut 4s ease-in-out infinite;">🏰</div>
+        <div style="position: absolute; top: 50px; right: 30px; font-size: 1.5rem; opacity: 0.4; animation: fadeInOut 3s ease-in-out infinite 1s;">🌅</div>
+        <div class="mansion-number">First Mansion</div>
+        <h2 class="mansion-title">The Outer Courts</h2>
+        <div class="mansion-content clearfix text-container">
+            <div class="teresa-quote">
+                <span class="quote-mark open">"</span>
+                "Let us consider that this <span class="mystical-text">castle</span> has, as I said, many dwelling places: some up above, others down below, others to the sides; and in the center and middle is the main dwelling place where the very <span class="ornamental-text">secret exchanges between God and the soul</span> take place."
+                <span class="quote-mark close">"</span>
+            </div>
+            
+            <div class="chapter-marker">
+                <span>The Outer Courts</span>
+            </div>
+            
+            <p class="manuscript-text">In the first mansion, we find souls who still pray and have good desires, yet remain caught up in <span class="interactive-word">worldly affairs<span class="word-tooltip">Business, honors, pleasures, vanities</span></span>. Like visitors in the outer courts of a great castle, they know of its beauty but have not yet ventured deeper.</p>
+            
+            <div class="wisdom-callout">
+                <strong class="emphasis-text">Teresa's Insight:</strong> The <span class="mystical-text">light of grace</span> flickers dimly here, often obscured by the noise and distractions of daily life. Yet even this small light is precious, for it draws the soul toward the center where the <span class="illuminated-text">King of Glory</span> dwells.
+            </div>
+            
+            <p class="verse-text">The great danger in this mansion is that souls become so accustomed to living among the <span class="interactive-word">"reptiles and vermin"<span class="word-tooltip">Worldly distractions and concerns</span></span> of worldly concerns that they lose sight of the castle's inner beauty.</p>
+
+            <div class="marginal-note">
+                <strong>Note:</strong> Teresa uses vivid imagery of creatures that inhabit the outer walls - representing the worldly attachments that keep souls from advancing deeper into prayer.
+            </div>
+
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpand(this)">
+                    <span><strong>🏰 Deeper Understanding: The Outer Courts</strong></span>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <p class="manuscript-text">Teresa compares these souls to people who enter a castle but remain in the guardroom with the soldiers, never venturing into the beautiful apartments within. They are content with the bare minimum of spiritual life.</p>
+                    <p class="scripture-reference"><span class="latin-phrase">"Appropinquate Deo, et appropinquabit vobis"</span> - "Draw near to God, and he will draw near to you." (James 4:8)</p>
+                </div>
+            </div>
+
+            <div class="section-divider">❦ ❦ ❦</div>
+        </div>
+        
+        <div class="reflection-prompt">
+            <h3>Reflection</h3>
+            <p>What worldly concerns most often distract you from prayer? How might you create more space for silence in your daily life? What "reptiles and vermin" of distraction need to be cleared from your soul's outer courts?</p>
+        </div>
+        
+        <div class="mansion-actions">
+            <button class="btn" onclick="openPrayerMode(1)">🙏 Pause & Pray</button>
+            <button class="btn" onclick="openJournal(1)">📝 Reflect & Journal</button>
+            <button class="btn primary" onclick="nextMansion(2)">➡️ Continue Journey</button>
+        </div>
+    </section>
+
+    <!-- Mansion 2 -->
+    <section class="mansion hidden" id="mansion2">
+        <div style="position: absolute; top: 30px; left: 40px; font-size: 1.8rem; opacity: 0.3; animation: fadeInOut 5s ease-in-out infinite;">⛰️</div>
+        <div style="position: absolute; bottom: 100px; right: 20px; font-size: 1.4rem; opacity: 0.4; animation: fadeInOut 4s ease-in-out infinite 2s;">🌟</div>
+        <div class="mansion-number">Second Mansion</div>
+        <h2 class="mansion-title">Perseverance in Prayer</h2>
+        <div class="mansion-content clearfix text-container">
+            <div class="teresa-quote">
+                <span class="quote-mark open">"</span>
+                "These souls can hear <span class="mystical-text">His Majesty</span> when He calls them. For as they gradually get closer to where His Majesty dwells, He becomes a very <span class="ornamental-text">good neighbor</span>."
+                <span class="quote-mark close">"</span>
+            </div>
+            
+            <div class="chapter-marker">
+                <span>The Call to Perseverance</span>
+            </div>
+            
+            <p class="manuscript-text">In the second mansion, souls have begun to hear the Lord's call more clearly through <span class="interactive-word">sermons<span class="word-tooltip">Spiritual teachings and guidance</span></span>, good books, trials, or illnesses that awaken them to spiritual realities.</p>
+            
+            <div class="poetic-line">
+                <span class="emphasis-text">Perseverantia</span> - the virtue that sustains the soul<br>
+                when prayer feels like walking through desert sand
+            </div>
+            
+            <div class="wisdom-callout">
+                <strong class="emphasis-text">The Great Battle:</strong> Here, the conflict between <span class="mystical-text">worldly attachments</span> and <span class="mystical-text">spiritual desires</span> intensifies dramatically. The enemy works harder to prevent these souls from advancing, knowing they are beginning to escape his grasp.
+            </div>
+            
+            <p class="verse-text">The key virtue needed here is <span class="illuminated-text">perseverance</span>. These souls must continue in prayer even when it feels dry, difficult, or unrewarding. They begin to understand that the spiritual life requires effort and sacrifice, yet they also start to taste the <span class="interactive-word">sweetness<span class="word-tooltip">The consolations of drawing closer to God</span></span> that comes from drawing closer to God.</p>
+
+            <div class="marginal-note">
+                <strong>Teresa's Counsel:</strong> "Let them be like the soldiers ready to serve, even without pay, since they are sure their Captain will never let them perish."
+            </div>
+            
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpand(this)">
+                    <span><strong>⛰️ The Importance of Spiritual Friendship</strong></span>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <p class="manuscript-text">Teresa emphasizes the crucial importance of <span class="mystical-text">good companionship</span> in this mansion - seeking out others who are also trying to serve God, as the influence of worldly friends can easily pull them backward.</p>
+                    <p class="scripture-reference"><span class="latin-phrase">"Ferrum ferro acuitur"</span> - "Iron sharpens iron, and one person sharpens another." (Proverbs 27:17)</p>
+                </div>
+            </div>
+
+            <div class="section-divider">❦ ❦ ❦</div>
+        </div>
+        
+        <div class="reflection-prompt">
+            <h3>Reflection</h3>
+            <p>When prayer feels difficult or dry, what helps you persevere? How do you recognize God's call in your daily life? What spiritual friendships support your journey toward God?</p>
+        </div>
+        
+        <div class="mansion-actions">
+            <button class="btn" onclick="openPrayerMode(2)">🙏 Pause & Pray</button>
+            <button class="btn" onclick="openJournal(2)">📝 Reflect & Journal</button>
+            <button class="btn primary" onclick="nextMansion(3)">➡️ Continue Journey</button>
+        </div>
+    </section>
+
+    <!-- Mansion 3 -->
+    <section class="mansion hidden" id="mansion3">
+        <div style="position: absolute; top: 40px; right: 50px; font-size: 1.6rem; opacity: 0.3; animation: fadeInOut 6s ease-in-out infinite;">⚖️</div>
+        <div style="position: absolute; bottom: 80px; left: 30px; font-size: 1.3rem; opacity: 0.4; animation: fadeInOut 4.5s ease-in-out infinite 1.5s;">🕊️</div>
+        <div class="mansion-number">Third Mansion</div>
+        <h2 class="mansion-title">Consistent Virtue</h2>
+        <div class="mansion-content clearfix text-container">
+            <div class="teresa-quote">
+                <span class="quote-mark open">"</span>
+                "Oh, Jesus! How secure these souls feel in their virtue! And how right they would be if they didn't have to fear falling back to the previous dwelling places."
+                <span class="quote-mark close">"</span>
+            </div>
+
+            <div class="chapter-marker">
+                <span>The Virtue of Consistency</span>
+            </div>
+            
+            <p class="manuscript-text">The third mansion houses souls who live consistently virtuous lives, rarely falling into serious sin. They are faithful in prayer, charitable in their dealings, well-ordered in their spiritual practices, and often admired by others for their devotion.</p>
+
+            <div class="poetic-line">
+                Yet in this <span class="emphasis-text">security</span> lies a hidden peril—<br>
+                the soul may rest content with its own <span class="illuminated-text">righteousness</span>
+            </div>
+            
+            <div class="wisdom-callout">
+                <strong class="emphasis-text">Teresa's Warning:</strong> The temptation to rely on one's own efforts and to become spiritually complacent. These souls may become so satisfied with their virtue that they resist God's call to go deeper.
+            </div>
+            
+            <p class="verse-text">They can become like the <span class="interactive-word">rich young man<span class="word-tooltip">Matthew 19:16-22 - the young man who kept all the commandments but couldn't surrender his wealth</span></span> in the Gospel - good, but unwilling to surrender everything for the sake of following Christ more closely.</p>
+
+            <div class="marginal-note">
+                <strong>The Great Test:</strong> Trials, contradictions, or sufferings that God permits often reveal whether the soul trusts in its own virtue or in God's mercy alone.
+            </div>
+
+            <p class="manuscript-text">Teresa emphasizes that while these souls are blessed, they must not become attached to their own spiritual achievements. The Lord invites them to move beyond mere <span class="latin-phrase">virtus humana</span> to <span class="mystical-text">divine union</span>, but this requires letting go of spiritual pride and self-reliance.</p>
+
+            <div class="section-divider">❦ ❦ ❦</div>
+        </div>
+        
+        <div class="reflection-prompt">
+            <h3>Reflection</h3>
+            <p>In what areas of your spiritual life do you rely too heavily on your own efforts? How might you surrender more completely to God's grace? What would you find most difficult to give up if God asked it of you?</p>
+        </div>
+        
+        <div class="mansion-actions">
+            <button class="btn" onclick="openPrayerMode(3)">🙏 Pause & Pray</button>
+            <button class="btn" onclick="openJournal(3)">📝 Reflect & Journal</button>
+            <button class="btn primary" onclick="nextMansion(4)">➡️ Continue Journey</button>
+        </div>
+    </section>
+
+    <!-- Mansion 4 -->
+    <section class="mansion hidden" id="mansion4">
+        <div style="position: absolute; top: 25px; left: 60px; font-size: 1.7rem; opacity: 0.3; animation: fadeInOut 5.5s ease-in-out infinite;">💧</div>
+        <div style="position: absolute; top: 70px; right: 40px; font-size: 1.4rem; opacity: 0.4; animation: fadeInOut 4s ease-in-out infinite 2.5s;">🌊</div>
+        <div class="mansion-number">Fourth Mansion</div>
+        <h2 class="mansion-title">Passive Contemplation</h2>
+        <div class="mansion-content clearfix text-container">
+            <div class="teresa-quote">
+                <span class="quote-mark open">"</span>
+                "Here it is that the soul begins to be <span class="mystical-text">recollected</span>, and here it comes upon <span class="ornamental-text">supernatural things</span>. It would never be able to reach these by its own efforts, no matter how hard it tried."
+                <span class="quote-mark close">"</span>
+            </div>
+            
+            <div class="chapter-marker">
+                <span>The Prayer of Quiet</span>
+            </div>
+            
+            <p class="manuscript-text">In the fourth mansion, we encounter the <span class="interactive-word">prayer of quiet<span class="word-tooltip">The beginning of contemplative prayer</span></span> - the beginning of contemplative prayer where <span class="mystical-text">God's action becomes more prominent than our own efforts</span>. Here, the soul experiences a gentle, loving attention to God's presence that it could never achieve through its own striving.</p>
+            
+            <div class="poetic-line">
+                Two fountains flow—one by <span class="emphasis-text">human effort</span>,<br>
+                the other from the <span class="illuminated-text">Source itself</span>
+            </div>
+            
+            <div class="wisdom-callout">
+                <strong class="emphasis-text">Teresa's Beautiful Analogy:</strong> She compares two fountains - the first like water carried in <span class="mystical-text">aqueducts through human effort</span>, while the second is like water flowing directly from its source - much more abundant and satisfying, requiring no work from the gardener.
+            </div>
+            
+            <p class="verse-text">In this mansion, the soul experiences what Teresa calls <span class="interactive-word">"passive recollection"<span class="word-tooltip">A gentle drawing inward from God</span></span> - a gentle drawing inward that comes from God, not from human effort. The <span class="mystical-text">will is captivated by God's love</span>, while the memory and understanding may still wander.</p>
+
+            <div class="marginal-note">
+                <strong>The Great Transition:</strong> This is where souls must learn to cooperate with God's grace rather than rely on their own spiritual techniques.
+            </div>
+
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpand(this)">
+                    <span><strong>💧 The Transition to Contemplation</strong></span>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <p class="manuscript-text">This is a crucial transition point where souls must learn to <span class="mystical-text">cooperate with God's grace</span> rather than rely on their own spiritual techniques. The temptation is to try to return to familiar methods of prayer when this new way feels uncertain or unfamiliar.</p>
+                    <p class="scripture-reference"><span class="latin-phrase">"Vacate et videte quoniam ego sum Deus"</span> - "Be still, and know that I am God." (Psalm 46:10)</p>
+                </div>
+            </div>
+
+            <div class="section-divider">❦ ❦ ❦</div>
+        </div>
+        
+        <div class="reflection-prompt">
+            <h3>Reflection</h3>
+            <p>Have you experienced moments of quiet, loving attention to God that seemed to come as a gift rather than through your effort? How do you distinguish between your own efforts and God's action in prayer? What helps you rest peacefully in God's presence?</p>
+        </div>
+        
+        <div class="mansion-actions">
+            <button class="btn" onclick="openPrayerMode(4)">🙏 Pause & Pray</button>
+            <button class="btn" onclick="openJournal(4)">📝 Reflect & Journal</button>
+            <button class="btn primary" onclick="nextMansion(5)">➡️ Continue Journey</button>
+        </div>
+    </section>
+
+    <!-- Mansion 5 -->
+    <section class="mansion hidden" id="mansion5">
+        <div style="position: absolute; top: 35px; right: 25px; font-size: 1.8rem; opacity: 0.3; animation: fadeInOut 6.5s ease-in-out infinite;">🦋</div>
+        <div style="position: absolute; bottom: 120px; left: 40px; font-size: 1.2rem; opacity: 0.4; animation: fadeInOut 3.5s ease-in-out infinite 1s;">🌸</div>
+        <div class="mansion-number">Fifth Mansion</div>
+        <h2 class="mansion-title">Union of Wills</h2>
+        <div class="mansion-content clearfix text-container">
+            <div class="teresa-quote">
+                <span class="quote-mark open">"</span>
+                "This little <span class="mystical-text">butterfly</span> has died with the greatest joy at having found rest, and <span class="ornamental-text">Christ lives in it</span>. Let us see what it does, or what the difference is between what it does and what it did before."
+                <span class="quote-mark close">"</span>
+            </div>
+            
+            <div class="chapter-marker">
+                <span>The Prayer of Union</span>
+            </div>
+            
+            <p class="manuscript-text">The fifth mansion represents the <span class="interactive-word">prayer of union<span class="word-tooltip">Brief but intense moments of complete absorption in God</span></span>, where the soul's will becomes perfectly aligned with God's will. Teresa uses her famous analogy of the <span class="mystical-text">silkworm</span> that spins its cocoon and dies to become a beautiful butterfly.</p>
+            
+            <div class="poetic-line">
+                From <span class="emphasis-text">silkworm</span> to <span class="emphasis-text">butterfly</span>—<br>
+                the soul creates its own cocoon through prayer and good works,<br>
+                dies to self, and emerges <span class="illuminated-text">transformed</span>
+            </div>
+            
+            <div class="wisdom-callout">
+                <strong class="emphasis-text">The Sacred Transformation:</strong> In this mansion, the soul experiences brief but intense moments of union with God - usually lasting only a half hour or less. During these times, all the faculties are completely absorbed in God.
+            </div>
+            
+            <p class="verse-text">The soul is certain it has been in God and God in it, though it cannot explain how this <span class="interactive-word">union<span class="word-tooltip">A mysterious joining of wills that transcends understanding</span></span> occurred. Like the butterfly that can no longer be content crawling as a worm, the soul can no longer find satisfaction in its former way of life.</p>
+
+            <div class="marginal-note">
+                <strong>Teresa's Emphasis:</strong> This union is not about visions or revelations, but about the conformity of our will with God's will - the essence of all mystical experience.
+            </div>
+            
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpand(this)">
+                    <span><strong>🦋 The Effects of Union</strong></span>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <p class="manuscript-text">The effects of this prayer are unmistakable: the soul emerges with an intense desire to praise God, a longing to suffer for Him, great detachment from worldly things, and a burning desire to help others find God.</p>
+                    <p class="scripture-reference"><span class="latin-phrase">"Vivo autem, iam non ego; vivit vero in me Christus"</span> - "I live, yet not I, but Christ lives in me." (Galatians 2:20)</p>
+                </div>
+            </div>
+
+            <div class="section-divider">❦ ❦ ❦</div>
+        </div>
+        
+        <div class="reflection-prompt">
+            <h3>Reflection</h3>
+            <p>What would it mean for your will to be perfectly aligned with God's will? How has prayer transformed your desires and priorities? In what ways do you sense God calling you to "die" to your old self?</p>
+        </div>
+        
+        <div class="mansion-actions">
+            <button class="btn" onclick="openPrayerMode(5)">🙏 Pause & Pray</button>
+            <button class="btn" onclick="openJournal(5)">📝 Reflect & Journal</button>
+            <button class="btn primary" onclick="nextMansion(6)">➡️ Continue Journey</button>
+        </div>
+    </section>
+
+    <!-- Mansion 6 -->
+    <section class="mansion hidden" id="mansion6">
+        <div style="position: absolute; top: 20px; left: 30px; font-size: 1.9rem; opacity: 0.3; animation: fadeInOut 7s ease-in-out infinite;">💍</div>
+        <div style="position: absolute; top: 80px; right: 60px; font-size: 1.3rem; opacity: 0.4; animation: fadeInOut 4.2s ease-in-out infinite 2s;">⚡</div>
+        <div class="mansion-number">Sixth Mansion</div>
+        <h2 class="mansion-title">Betrothal and Trials</h2>
+        <div class="mansion-content clearfix text-container">
+            <div class="teresa-quote">
+                <span class="quote-mark open">"</span>
+                "His Majesty wants the soul to desire Him more by letting it see clearly this great <span class="mystical-text">God of majesty</span>, and He wants to prepare it for the <span class="ornamental-text">betrothal</span>. For you must know that in this dwelling place the soul is now like one betrothed."
+                <span class="quote-mark close">"</span>
+            </div>
+            
+            <div class="chapter-marker">
+                <span>The Spiritual Betrothal</span>
+            </div>
+            
+            <p class="manuscript-text">In the sixth mansion, the soul experiences a deeper <span class="interactive-word">betrothal<span class="word-tooltip">A sacred engagement preparing for spiritual marriage</span></span> with the Lord, accompanied by both extraordinary consolations and severe trials. This is the longest and most detailed section of Teresa's work, reflecting the complexity and intensity of this stage.</p>
+            
+            <div class="poetic-line">
+                Here <span class="emphasis-text">consolation</span> and <span class="emphasis-text">cross</span> intertwine—<br>
+                the soul learns to find God in both<br>
+                <span class="illuminated-text">sweetness and suffering</span>
+            </div>
+            
+            <div class="wisdom-callout">
+                <strong class="emphasis-text">The Purifying Fire:</strong> God purifies the soul through various sufferings: intense desires for God that cause physical pain, periods of spiritual dryness, misunderstandings from others, and sometimes mystical experiences like <span class="mystical-text">visions, locutions, or ecstasies</span>.
+            </div>
+            
+            <p class="verse-text">The trials serve a crucial purpose: they purify the soul of any remaining <span class="interactive-word">self-love<span class="word-tooltip">Attachment to one's own will and preferences</span></span> and prepare it for the complete self-surrender required for spiritual marriage. The soul learns that it must find God not only in consolations but also in the cross.</p>
+
+            <div class="marginal-note">
+                <strong>Teresa's Warning:</strong> Souls in this mansion face particular dangers - attachment to spiritual consolations, spiritual pride from extraordinary experiences, or discouragement from intense trials.
+            </div>
+            
+            <p class="manuscript-text">It develops a deep compassion for Christ's sufferings and an intense desire to suffer with Him. The soul experiences the full range of mystical phenomena that Teresa herself knew so well, yet learns to value <span class="emphasis-text">conformity to God's will</span> above all extraordinary graces.</p>
+            
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpand(this)">
+                    <span><strong>💍 The Mystical Phenomena</strong></span>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <p class="manuscript-text">Despite the difficulties, the soul in this mansion experiences an unshakeable certainty of God's love and presence, even in the midst of the darkest trials. The key is to remain humble and seek wise spiritual direction.</p>
+                    <p class="scripture-reference"><span class="latin-phrase">"Si compatimur, et conregnabimus"</span> - "If we suffer with him, we shall also reign with him." (2 Timothy 2:12)</p>
+                </div>
+            </div>
+
+            <div class="section-divider">❦ ❦ ❦</div>
+        </div>
+        
+        <div class="reflection-prompt">
+            <h3>Reflection</h3>
+            <p>How has suffering deepened your relationship with God? In what ways do you sense God preparing you for deeper union? How do you find God present in both consolation and desolation?</p>
+        </div>
+        
+        <div class="mansion-actions">
+            <button class="btn" onclick="openPrayerMode(6)">🙏 Pause & Pray</button>
+            <button class="btn" onclick="openJournal(6)">📝 Reflect & Journal</button>
+            <button class="btn primary" onclick="nextMansion(7)">➡️ Continue Journey</button>
+        </div>
+    </section>
+
+    <!-- Mansion 7 -->
+    <section class="mansion hidden" id="mansion7">
+        <div style="position: absolute; top: 30px; left: 50%; transform: translateX(-50%); font-size: 2rem; opacity: 0.4; animation: fadeInOut 8s ease-in-out infinite;">👑</div>
+        <div style="position: absolute; bottom: 100px; left: 20px; font-size: 1.5rem; opacity: 0.3; animation: fadeInOut 5s ease-in-out infinite 1.5s;">💒</div>
+        <div style="position: absolute; bottom: 100px; right: 20px; font-size: 1.5rem; opacity: 0.3; animation: fadeInOut 5s ease-in-out infinite 3s;">✨</div>
+        <div class="mansion-number">Seventh Mansion</div>
+        <h2 class="mansion-title">Spiritual Marriage</h2>
+        <div class="mansion-content clearfix text-container">
+            <div class="teresa-quote">
+                <span class="quote-mark open">"</span>
+                "When His Majesty is pleased to grant the soul this <span class="mystical-text">divine marriage</span>, He first brings it into His dwelling place, which is this seventh mansion. For just as in heaven He has a dwelling place where only His Majesty dwells, so in the soul there is <span class="ornamental-text">another heaven</span> where only His Majesty dwells."
+                <span class="quote-mark close">"</span>
+            </div>
+            
+            <div class="chapter-marker">
+                <span>The Divine Marriage</span>
+            </div>
+            
+            <p class="manuscript-text">The seventh mansion is the dwelling place of the <span class="interactive-word">King himself<span class="word-tooltip">The very center where God dwells in the soul</span></span> - the state of spiritual marriage where the soul lives in constant, unshakeable union with God. Unlike the temporary unions of the fifth mansion or even the betrothal of the sixth, this is a permanent, indissoluble union that nothing can disturb.</p>
+            
+            <div class="poetic-line">
+                Like <span class="emphasis-text">rain falling into a river</span>—<br>
+                the waters become so united<br>
+                they can <span class="illuminated-text">never be separated</span>
+            </div>
+            
+            <div class="wisdom-callout">
+                <strong class="emphasis-text">Perfect Union:</strong> The soul maintains its distinct identity while being completely one with God. Here, <span class="mystical-text">Martha and Mary</span> are perfectly united: the soul lives in constant contemplation while being actively engaged in service to others.
+            </div>
+            
+            <p class="verse-text">The characteristics of this mansion include: perfect peace that nothing can disturb, complete forgetfulness of self, an overwhelming desire to serve God through service to others, and the ability to suffer greatly while maintaining <span class="interactive-word">interior joy<span class="word-tooltip">A deep peace that transcends all circumstances</span></span>.</p>
+
+            <div class="marginal-note">
+                <strong>The Intellectual Vision:</strong> The soul experiences a constant awareness of the three Divine Persons dwelling within - not a vision that comes and goes, but a permanent consciousness of God's presence.
+            </div>
+            
+            <p class="manuscript-text">Most remarkably, the soul in this mansion experiences what Teresa calls the <span class="emphasis-text">"intellectual vision" of the Trinity</span> - a constant awareness of the three Divine Persons dwelling within. This is not a vision that comes and goes, but a permanent consciousness of God's presence that accompanies all the soul's activities.</p>
+            
+            <div class="expandable-section">
+                <div class="expandable-header" onclick="toggleExpand(this)">
+                    <span><strong>👑 Apostolic Fruitfulness</strong></span>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="expandable-content">
+                    <p class="manuscript-text">The ultimate fruit of this mansion is apostolic fruitfulness. The journey inward has led to a life poured out in love for others. The soul becomes a channel of God's grace to the world, bearing much fruit without effort or anxiety.</p>
+                    <p class="scripture-reference"><span class="latin-phrase">"Qui manet in me, et ego in eo, hic fert fructum multum"</span> - "Whoever remains in me and I in him will bear much fruit." (John 15:5)</p>
+                </div>
+            </div>
+
+            <div class="section-divider">❦ ❦ ❦</div>
+        </div>
+        
+        <div class="reflection-prompt">
+            <h3>Reflection</h3>
+            <p>How does contemplative prayer call you to greater service? What would it look like to live in constant awareness of God's presence? How might your spiritual journey ultimately serve others?</p>
+        </div>
+        
+        <div class="mansion-actions">
+            <button class="btn" onclick="openPrayerMode(7)">🙏 Pause & Pray</button>
+            <button class="btn" onclick="openJournal(7)">📝 Reflect & Journal</button>
+            <button class="btn primary" onclick="completeJourney()">👑 Complete Journey</button>
+        </div>
+    </section>
+
+    <!-- Completion Screen -->
+    <section class="mansion hidden" id="completion">
+        <h2 class="mansion-title">Journey Complete</h2>
+        <div class="mansion-content clearfix text-container">
+            <p>You have walked through all seven mansions of the Interior Castle. Like Teresa herself, you have glimpsed the beauty of the soul and the infinite love that dwells within.</p>
+            
+            <p>Remember: this journey is not a linear progression but a deepening spiral. We may find ourselves in different mansions at different times, always being drawn deeper into the heart of God.</p>
+            
+            <p class="reflection-prompt" style="background: rgba(255, 215, 0, 0.2); border-left-color: gold;">
+                "Let nothing disturb you. All things pass. God does not change. Patience obtains all. Whoever has God lacks nothing. God alone suffices." - St. Teresa of Ávila
+            </p>
+        </div>
+        
+        <div class="mansion-actions">
+            <button class="btn" onclick="exportReflections()">📄 Export Reflections</button>
+            <button class="btn primary" onclick="restartJourney()">🔄 Begin Again</button>
+        </div>
+    </section>
+
+    <!-- Prayer Modal -->
+    <div class="prayer-modal" id="prayerModal">
+        <div class="prayer-content">
+            <h3>Prayer & Contemplation</h3>
+            <p id="prayerText">Enter into silence and rest in God's presence...</p>
+            <div class="timer-display" id="timerDisplay">5:00</div>
+            <div class="mansion-actions">
+                <button class="btn primary" onclick="startTimer(300)">🕐 5 Minutes</button>
+                <button class="btn primary" onclick="startTimer(600)">🕙 10 Minutes</button>
+                <button class="btn primary" onclick="startTimer(1200)">🕐 20 Minutes</button>
+                <button class="btn" onclick="closePrayerMode()">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Journal Modal -->
+    <div class="journal-modal" id="journalModal">
+        <div class="journal-content">
+            <h3>Reflection Journal</h3>
+            <p id="journalPrompt">Write your reflections...</p>
+            <textarea class="journal-textarea" id="journalText" placeholder="Enter your thoughts and reflections here..."></textarea>
+            <div class="mansion-actions" style="margin-top: 1rem;">
+                <button class="btn primary" onclick="saveReflection()">💾 Save Reflection</button>
+                <button class="btn" onclick="closeJournal()">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMansion = 0;
+        let timerInterval;
+        let reflections = JSON.parse(localStorage.getItem('castleReflections') || '{}');
+
+        function enterCastle() {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('castleMap').classList.remove('hidden');
+            document.getElementById('progressTower').classList.remove('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('castleMap').classList.add('visible');
+            }, 100);
+            
+            updateProgress();
+        }
+
+        function startJourney() {
+            goToMansion(1);
+        }
+
+        function goToMansion(mansionNum) {
+            // Hide all sections
+            document.querySelectorAll('.mansion, .castle-map').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('visible');
+            });
+            
+            currentMansion = mansionNum;
+            
+            if (mansionNum <= 7) {
+                const mansion = document.getElementById(`mansion${mansionNum}`);
+                mansion.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    mansion.classList.add('visible');
+                }, 100);
+                
+                updateProgress();
+                updateCastleMap();
+            }
+        }
+
+        function nextMansion(mansionNum) {
+            if (mansionNum <= 7) {
+                goToMansion(mansionNum);
+            } else {
+                completeJourney();
+            }
+        }
+
+        function completeJourney() {
+            document.querySelectorAll('.mansion').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('visible');
+            });
+            
+            const completion = document.getElementById('completion');
+            completion.classList.remove('hidden');
+            
+            setTimeout(() => {
+                completion.classList.add('visible');
+            }, 100);
+            
+            currentMansion = 7;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progressLight = document.getElementById('progressLight');
+            const percentage = (currentMansion / 7) * 100;
+            progressLight.style.width = `${percentage}%`;
+        }
+
+        function updateCastleMap() {
+            const rings = document.querySelectorAll('.ring');
+            rings.forEach((ring, index) => {
+                ring.classList.remove('current', 'completed');
+                
+                if (index + 1 < currentMansion) {
+                    ring.classList.add('completed');
+                } else if (index + 1 === currentMansion) {
+                    ring.classList.add('current');
+                }
+            });
+        }
+
+        function openPrayerMode(mansionNum) {
+            const modal = document.getElementById('prayerModal');
+            const prayerText = document.getElementById('prayerText');
+            
+            const prayerTexts = {
+                1: "Rest in God's presence, knowing that even your smallest desire for prayer is precious to Him...",
+                2: "Persevere in this time of prayer, trusting that God hears you even when you feel distant...",
+                3: "Surrender your efforts to God's grace, allowing Him to work within you...",
+                4: "Simply rest in loving attention to God, without striving or effort...",
+                5: "Allow your will to be united with God's will in this moment of prayer...",
+                6: "Find God present with you in both consolation and trial...",
+                7: "Rest in the perfect union of love, knowing you are one with the Beloved..."
+            };
+            
+            prayerText.textContent = prayerTexts[mansionNum] || "Enter into silence and rest in God's presence...";
+            modal.classList.add('active');
+        }
+
+        function closePrayerMode() {
+            document.getElementById('prayerModal').classList.remove('active');
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        }
+
+        function startTimer(seconds) {
+            const display = document.getElementById('timerDisplay');
+            let timeLeft = seconds;
+            
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            timerInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                display.textContent = `${minutes}:${secs.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    display.textContent = "Prayer Complete";
+                    setTimeout(() => {
+                        closePrayerMode();
+                    }, 2000);
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+
+        function openJournal(mansionNum) {
+            const modal = document.getElementById('journalModal');
+            const prompt = document.getElementById('journalPrompt');
+            const textarea = document.getElementById('journalText');
+            
+            const prompts = {
+                1: "What worldly concerns most often distract you from prayer? How might you create more space for silence in your daily life? What 'reptiles and vermin' of distraction need to be cleared from your soul's outer courts?",
+                2: "When prayer feels difficult or dry, what helps you persevere? How do you recognize God's call in your daily life? What spiritual friendships support your journey toward God?",
+                3: "In what areas of your spiritual life do you rely too heavily on your own efforts? How might you surrender more completely to God's grace? What would you find most difficult to give up if God asked it of you?",
+                4: "Have you experienced moments of quiet, loving attention to God that seemed to come as a gift rather than through your effort? How do you distinguish between your own efforts and God's action in prayer? What helps you rest peacefully in God's presence?",
+                5: "What would it mean for your will to be perfectly aligned with God's will? How has prayer transformed your desires and priorities? In what ways do you sense God calling you to 'die' to your old self?",
+                6: "How has suffering deepened your relationship with God? In what ways do you sense God preparing you for deeper union? How do you find God present in both consolation and desolation?",
+                7: "How does contemplative prayer call you to greater service? What would it look like to live in constant awareness of God's presence? How might your spiritual journey ultimately serve others?"
+            };
+            
+            prompt.textContent = prompts[mansionNum] || "Write your reflections on this mansion...";
+            textarea.value = reflections[`mansion${mansionNum}`] || '';
+            modal.classList.add('active');
+            modal.dataset.mansion = mansionNum;
+        }
+
+        function closeJournal() {
+            document.getElementById('journalModal').classList.remove('active');
+        }
+
+        function saveReflection() {
+            const modal = document.getElementById('journalModal');
+            const mansionNum = modal.dataset.mansion;
+            const text = document.getElementById('journalText').value;
+            
+            reflections[`mansion${mansionNum}`] = text;
+            localStorage.setItem('castleReflections', JSON.stringify(reflections));
+            
+            closeJournal();
+        }
+
+        function exportReflections() {
+            let exportText = "My Interior Castle Journey - Reflections\n\n";
+            
+            for (let i = 1; i <= 7; i++) {
+                if (reflections[`mansion${i}`]) {
+                    exportText += `Mansion ${i} Reflection:\n${reflections[`mansion${i}`]}\n\n`;
+                }
+            }
+            
+            const blob = new Blob([exportText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'interior-castle-reflections.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function restartJourney() {
+            currentMansion = 0;
+            document.getElementById('completion').classList.add('hidden');
+            document.getElementById('castleMap').classList.remove('hidden');
+            document.getElementById('castleMap').classList.add('visible');
+            updateProgress();
+            updateCastleMap();
+        }
+
+        // Initialize scroll-based animations
+        function handleScroll() {
+            const mansions = document.querySelectorAll('.mansion');
+            mansions.forEach(mansion => {
+                const rect = mansion.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+                    mansion.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        
+        // Toggle expandable sections
+        function toggleExpand(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.expand-icon');
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.classList.remove('rotated');
+            } else {
+                content.classList.add('expanded');
+                icon.classList.add('rotated');
+            }
+        }
+
+        // Mouse Trail Effect
+        let mouseTrails = [];
+        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#ffd700'];
+        let colorIndex = 0;
+
+        function createMouseTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.className = 'mouse-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            trail.style.background = colors[colorIndex];
+            
+            colorIndex = (colorIndex + 1) % colors.length;
+            
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                if (trail.parentNode) {
+                    trail.parentNode.removeChild(trail);
+                }
+            }, 1000);
+        }
+
+        let lastTrailTime = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastTrailTime > 50) { // Throttle trail creation
+                createMouseTrail(e.clientX - 4, e.clientY - 4);
+                lastTrailTime = now;
+            }
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9854d78022d144f1',t:'MTc1ODkxMTUyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
